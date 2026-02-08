@@ -12,24 +12,11 @@
     --text:#94a3b8;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Segoe UI",Arial,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:white;overflow-x:hidden}
 
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:var(--bg);
-    color:white;
-    overflow-x:hidden;
-}
-
-/* ===== PARTICLES ===== */
+/* ===== PARTICLES (MC BLOCKS) ===== */
 #particles{
     position:fixed;
     inset:0;
@@ -43,19 +30,13 @@ body{
     border-bottom:1px solid rgba(255,255,255,.08);
     overflow:hidden;
 }
-
 .announcement-text{
     padding:10px 0;
     white-space:nowrap;
     color:#6ee7b7;
-    font-weight:500;
     animation:scroll 30s linear infinite;
 }
-
-@keyframes scroll{
-    from{transform:translateX(100%)}
-    to{transform:translateX(-100%)}
-}
+@keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
 
 /* ===== HERO ===== */
 .hero{
@@ -65,172 +46,79 @@ body{
     justify-content:center;
     align-items:center;
     text-align:center;
-    background:
-        radial-gradient(circle at top, rgba(16,185,129,.25), transparent 60%);
+    background:radial-gradient(circle at top, rgba(16,185,129,.25), transparent 60%);
 }
-
 .status{
-    display:flex;
-    align-items:center;
-    gap:10px;
+    display:flex;align-items:center;gap:10px;
     background:rgba(16,185,129,.15);
     color:var(--green);
-    padding:8px 20px;
-    border-radius:999px;
-    font-weight:600;
-    letter-spacing:1px;
+    padding:8px 20px;border-radius:999px;
     margin-bottom:35px;
-    backdrop-filter:blur(8px);
-    box-shadow:0 0 25px rgba(16,185,129,.25);
 }
-
 .status span{
-    width:10px;
-    height:10px;
-    background:#22c55e;
-    border-radius:50%;
-    box-shadow:0 0 12px #22c55e;
+    width:10px;height:10px;border-radius:50%;
+    background:#22c55e;box-shadow:0 0 12px #22c55e;
 }
-
-.hero h1{
-    font-size:clamp(3rem,8vw,5.5rem);
-    font-weight:800;
-    letter-spacing:3px;
-}
-
-.hero h1 span{
-    color:var(--green);
-    text-shadow:0 0 25px rgba(52,211,153,.8),0 0 60px rgba(52,211,153,.4);
-}
-
-.hero p{
-    margin-top:25px;
-    font-size:1.4rem;
-    color:var(--text);
-}
-
+.hero h1{font-size:clamp(3rem,8vw,5.5rem);letter-spacing:3px}
+.hero h1 span{color:var(--green);text-shadow:0 0 25px rgba(52,211,153,.8)}
+.hero p{margin-top:25px;font-size:1.4rem;color:var(--text)}
 .hero a{
-    margin-top:50px;
-    padding:20px 55px;
-    background:var(--green);
-    color:#022c22;
-    font-weight:700;
-    font-size:1.1rem;
-    border-radius:14px;
-    text-decoration:none;
+    margin-top:50px;padding:20px 55px;
+    background:var(--green);color:#022c22;
+    font-weight:700;border-radius:14px;text-decoration:none;
     box-shadow:0 0 40px rgba(52,211,153,.5);
     transition:.25s;
 }
+.hero a:hover{transform:translateY(-4px) scale(1.05)}
 
-.hero a:hover{
-    transform:translateY(-4px) scale(1.05);
-    box-shadow:0 0 65px rgba(52,211,153,.8);
-}
+/* ===== SEKCJE ===== */
+section{padding:100px 20px;max-width:1100px;margin:auto;text-align:center}
+section h2{font-size:2.4rem;color:var(--green);margin-bottom:50px}
 
-/* ===== INFO ===== */
-#info{
-    padding:100px 20px;
-    max-width:1000px;
-    margin:auto;
-    text-align:center;
-}
-
-#info h2{
-    font-size:2.4rem;
-    color:var(--green);
-    margin-bottom:40px;
-}
-
-.info-grid{
+/* ===== KARTY ===== */
+.grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:30px;
 }
-
-.info-card{
+.card{
     background:rgba(255,255,255,.05);
     backdrop-filter:blur(12px);
     border-radius:20px;
     padding:30px;
     box-shadow:0 0 30px rgba(52,211,153,.12);
-    transition:.3s;
+    opacity:0;
+    transform:translateY(40px);
+    transition:.6s;
 }
-
-.info-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 0 45px rgba(52,211,153,.25);
+.card.show{
+    opacity:1;
+    transform:translateY(0);
 }
-
-.info-card h3{
-    color:var(--green);
-    margin-bottom:10px;
-}
+.card h3{color:var(--green);margin-bottom:10px}
 
 /* ===== COMMUNITY ===== */
-#community{
-    padding:100px 20px;
-    display:flex;
-    justify-content:center;
-}
-
-.community-stack{
-    max-width:500px;
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    gap:50px;
-}
-
+#community{display:flex;justify-content:center}
+.stack{max-width:520px;width:100%;display:flex;flex-direction:column;gap:50px}
 .box{
     background:rgba(255,255,255,.05);
     backdrop-filter:blur(12px);
     border-radius:22px;
     padding:40px;
-    text-align:center;
     box-shadow:0 0 40px rgba(52,211,153,.15);
 }
-
-.box h2{
-    color:var(--green);
-    margin-bottom:20px;
-}
-
-.ip{
-    font-size:2rem;
-    margin:20px 0;
-    color:#86efac;
-}
-
-.copy-btn{
+.ip{font-size:2rem;margin:20px 0;color:#86efac}
+button{
     padding:14px 35px;
     background:var(--green);
-    border:none;
-    border-radius:12px;
-    font-weight:700;
-    cursor:pointer;
+    border:none;border-radius:12px;
+    font-weight:700;cursor:pointer;
     box-shadow:0 0 30px rgba(52,211,153,.45);
-    transition:.25s;
 }
-
-.copy-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 50px rgba(52,211,153,.7);
-}
-
-.discord iframe{
-    width:100%;
-    height:420px;
-    border:none;
-    border-radius:14px;
-}
+.discord iframe{width:100%;height:420px;border:none;border-radius:14px}
 
 /* ===== FOOTER ===== */
-footer{
-    text-align:center;
-    padding:35px;
-    color:var(--text);
-    border-top:1px solid rgba(255,255,255,.08);
-}
+footer{text-align:center;padding:35px;color:var(--text);border-top:1px solid rgba(255,255,255,.08)}
 </style>
 </head>
 <body>
@@ -239,51 +127,50 @@ footer{
 
 <div class="announcement-bar">
     <div class="announcement-text">
-        🔔 Ekipa Mapy wystartowała • Wersja 1.20.4 • Dołącz do wspólnej gry!
+        🔔 Ekipa Mapy • Survival • Jedna mapa • Dołącz do gry już teraz!
     </div>
 </div>
 
 <header class="hero">
-    <div class="status"><span></span> SERWER WERSJA 1.8 - 1.21.5+</div>
+    <div class="status"><span></span> SERWER ONLINE 1.21+</div>
     <h1>EKIPA <span>MAPY</span></h1>
-    <p>Luz • Zabawa • Ludzie</p>
-    <a href="#info">Poznaj serwer ↓</a>
+    <p>Wspólne budowanie • Społeczność • Klimat</p>
+    <a href="#community">Dołącz do serwera ↓</a>
 </header>
 
-<section id="info">
+<section>
     <h2>O serwerze</h2>
-    <div class="info-grid">
-        <div class="info-card">
-            <h3>🌍 Survival</h3>
-            <p>Czysta rozgrywka bez pay-to-win.</p>
-        </div>
-        <div class="info-card">
-            <h3>🧑‍🤝‍🧑 Społeczność</h3>
-            <p>Jedna mapa, wspólne projekty.</p>
-        </div>
-        <div class="info-card">
-            <h3>⚙️ Stabilność</h3>
-            <p>Optymalizacja i regularne backupy.</p>
-        </div>
+    <div class="grid">
+        <div class="card"><h3>🌍 Survival</h3><p>Bez pay-to-win.</p></div>
+        <div class="card"><h3>🏗️ Jedna mapa</h3><p>Rozwijana przez wszystkich.</p></div>
+        <div class="card"><h3>⚙️ Stabilność</h3><p>Backupy i optymalizacja.</p></div>
+    </div>
+</section>
+
+<section>
+    <h2>Administracja</h2>
+    <div class="grid">
+        <div class="card"><h3>👑 Właściciel</h3><p>Grześ</p></div>
+        <div class="card"><h3>🛠️ Admin</h3><p>Admin1, Admin2</p></div>
+        <div class="card"><h3>🧑‍💼 Moderator</h3><p>Mod1, Mod2</p></div>
     </div>
 </section>
 
 <section id="community">
-    <div class="community-stack">
+    <div class="stack">
 
         <div class="box">
-            <h2>Dołącz do gry</h2>
-            <p>Adres IP serwera:</p>
-            <div class="ip" id="serverIp">gdzie pieniądze za las</div>
-            <button class="copy-btn" onclick="copyIP()">Kopiuj IP</button>
-            <div id="copyInfo"></div>
+            <h2>Adres IP</h2>
+            <div class="ip" id="ip">ekipamapy.pl</div>
+            <button onclick="copyIP()">Kopiuj IP</button>
+            <div id="info"></div>
         </div>
 
         <div class="box discord">
             <h2>Discord</h2>
             <iframe src="https://discord.com/widget?id=123456789012345678&theme=dark"
             allowtransparency="true"
-            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            sandbox="allow-popups allow-scripts allow-same-origin"></iframe>
         </div>
 
     </div>
@@ -294,29 +181,36 @@ footer{
 </footer>
 
 <script>
+/* COPY IP */
 function copyIP(){
-    navigator.clipboard.writeText(serverIp.innerText);
-    copyInfo.innerText="IP skopiowane!";
+    navigator.clipboard.writeText(ip.innerText);
+    info.innerText="IP skopiowane!";
 }
 
-/* PARTICLES */
-const canvas=particles,ctx=canvas.getContext("2d");
-let w,h,p=[];
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
+/* ANIMACJE KART */
+const obs=new IntersectionObserver(e=>{
+    e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"))
+},{threshold:.2});
+document.querySelectorAll(".card").forEach(c=>obs.observe(c));
+
+/* PARTICLES = BLOKI MC */
+const c=particles,ctx=c.getContext("2d");
+let w,h,b=[];
+function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
 addEventListener("resize",resize);resize();
 
-class Particle{
+class Block{
     constructor(){
-        this.x=Math.random()*w;this.y=Math.random()*h;
-        this.r=Math.random()*2+1;
-        this.vx=(Math.random()-.5)*.4;
-        this.vy=(Math.random()-.5)*.4;
+        this.x=Math.random()*w;
+        this.y=Math.random()*h;
+        this.s=Math.random()*6+4;
+        this.vx=(Math.random()-.5)*.3;
+        this.vy=(Math.random()-.5)*.3;
+        this.a=Math.random()*.4+.2;
     }
     draw(){
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(52,211,153,.4)";
-        ctx.fill();
+        ctx.fillStyle=`rgba(52,211,153,${this.a})`;
+        ctx.fillRect(this.x,this.y,this.s,this.s);
     }
     update(){
         this.x+=this.vx;this.y+=this.vy;
@@ -324,10 +218,10 @@ class Particle{
         if(this.y<0||this.y>h) this.vy*=-1;
     }
 }
-for(let i=0;i<120;i++) p.push(new Particle());
+for(let i=0;i<120;i++) b.push(new Block());
 (function anim(){
     ctx.clearRect(0,0,w,h);
-    p.forEach(x=>{x.update();x.draw()});
+    b.forEach(x=>{x.update();x.draw()});
     requestAnimationFrame(anim);
 })();
 </script>
