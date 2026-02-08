@@ -19,6 +19,10 @@
     font-family:"Segoe UI",Arial,sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:var(--bg);
     color:white;
@@ -96,9 +100,7 @@ body{
 
 .hero h1 span{
     color:var(--green);
-    text-shadow:
-        0 0 25px rgba(52,211,153,.8),
-        0 0 60px rgba(52,211,153,.4);
+    text-shadow:0 0 25px rgba(52,211,153,.8),0 0 60px rgba(52,211,153,.4);
 }
 
 .hero p{
@@ -125,22 +127,61 @@ body{
     box-shadow:0 0 65px rgba(52,211,153,.8);
 }
 
-/* ===== IP + DISCORD ===== */
+/* ===== INFO ===== */
+#info{
+    padding:100px 20px;
+    max-width:1000px;
+    margin:auto;
+    text-align:center;
+}
+
+#info h2{
+    font-size:2.4rem;
+    color:var(--green);
+    margin-bottom:40px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.info-card{
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 0 30px rgba(52,211,153,.12);
+    transition:.3s;
+}
+
+.info-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 0 45px rgba(52,211,153,.25);
+}
+
+.info-card h3{
+    color:var(--green);
+    margin-bottom:10px;
+}
+
+/* ===== COMMUNITY ===== */
 #community{
     padding:100px 20px;
     display:flex;
     justify-content:center;
 }
 
-.community-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:40px;
-    max-width:1100px;
+.community-stack{
+    max-width:500px;
     width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:50px;
 }
 
-.ip-box, .discord-box{
+.box{
     background:rgba(255,255,255,.05);
     backdrop-filter:blur(12px);
     border-radius:22px;
@@ -149,9 +190,7 @@ body{
     box-shadow:0 0 40px rgba(52,211,153,.15);
 }
 
-.ip-box h2,
-.discord-box h2{
-    font-size:2rem;
+.box h2{
     color:var(--green);
     margin-bottom:20px;
 }
@@ -163,7 +202,6 @@ body{
 }
 
 .copy-btn{
-    margin-top:15px;
     padding:14px 35px;
     background:var(--green);
     border:none;
@@ -179,13 +217,7 @@ body{
     box-shadow:0 0 50px rgba(52,211,153,.7);
 }
 
-.copy-info{
-    margin-top:15px;
-    color:#bbf7d0;
-}
-
-/* ===== DISCORD IFRAME ===== */
-.discord-box iframe{
+.discord iframe{
     width:100%;
     height:420px;
     border:none;
@@ -207,40 +239,51 @@ footer{
 
 <div class="announcement-bar">
     <div class="announcement-text">
-        🔔 Witaj na Ekipa Mapy! Serwer wystartował • Wersja 1.20.4 • Dołącz na Discorda!
+        🔔 Ekipa Mapy wystartowała • Wersja 1.20.4 • Dołącz do wspólnej gry!
     </div>
 </div>
 
 <header class="hero">
-    <div class="status">
-        <span></span> SERWER ONLINE 1.21+
-    </div>
-
+    <div class="status"><span></span> SERWER ONLINE 1.21+</div>
     <h1>EKIPA <span>MAPY</span></h1>
     <p>Wspólne budowanie • Survival • Społeczność</p>
-    <a href="#community">Dołącz do serwera →</a>
+    <a href="#info">Poznaj serwer ↓</a>
 </header>
 
-<section id="community">
-    <div class="community-grid">
+<section id="info">
+    <h2>O serwerze</h2>
+    <div class="info-grid">
+        <div class="info-card">
+            <h3>🌍 Survival</h3>
+            <p>Czysta rozgrywka bez pay-to-win.</p>
+        </div>
+        <div class="info-card">
+            <h3>🧑‍🤝‍🧑 Społeczność</h3>
+            <p>Jedna mapa, wspólne projekty.</p>
+        </div>
+        <div class="info-card">
+            <h3>⚙️ Stabilność</h3>
+            <p>Optymalizacja i regularne backupy.</p>
+        </div>
+    </div>
+</section>
 
-        <div class="ip-box">
+<section id="community">
+    <div class="community-stack">
+
+        <div class="box">
             <h2>Dołącz do gry</h2>
             <p>Adres IP serwera:</p>
             <div class="ip" id="serverIp">ekipamapy.pl</div>
             <button class="copy-btn" onclick="copyIP()">Kopiuj IP</button>
-            <div class="copy-info" id="copyInfo"></div>
+            <div id="copyInfo"></div>
         </div>
 
-        <div class="discord-box">
+        <div class="box discord">
             <h2>Discord</h2>
-
-            <!-- PODMIEŃ ID SERWERA -->
-            <iframe
-                src="https://discord.com/widget?id=123456789012345678&theme=dark"
-                allowtransparency="true"
-                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-            </iframe>
+            <iframe src="https://discord.com/widget?id=123456789012345678&theme=dark"
+            allowtransparency="true"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
         </div>
 
     </div>
@@ -251,56 +294,42 @@ footer{
 </footer>
 
 <script>
-/* ===== COPY IP ===== */
 function copyIP(){
-    const ip=document.getElementById("serverIp").innerText;
-    navigator.clipboard.writeText(ip);
-    document.getElementById("copyInfo").innerText="IP skopiowane!";
+    navigator.clipboard.writeText(serverIp.innerText);
+    copyInfo.innerText="IP skopiowane!";
 }
 
-/* ===== PARTICLES ===== */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-let w,h,particles=[];
-
-function resize(){
-    w=canvas.width=window.innerWidth;
-    h=canvas.height=window.innerHeight;
-}
-window.addEventListener("resize",resize);
-resize();
+/* PARTICLES */
+const canvas=particles,ctx=canvas.getContext("2d");
+let w,h,p=[];
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
+addEventListener("resize",resize);resize();
 
 class Particle{
     constructor(){
-        this.x=Math.random()*w;
-        this.y=Math.random()*h;
+        this.x=Math.random()*w;this.y=Math.random()*h;
         this.r=Math.random()*2+1;
-        this.vx=(Math.random()-.5)*0.4;
-        this.vy=(Math.random()-.5)*0.4;
-        this.a=Math.random()*0.5+0.2;
+        this.vx=(Math.random()-.5)*.4;
+        this.vy=(Math.random()-.5)*.4;
     }
     draw(){
         ctx.beginPath();
         ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-        ctx.fillStyle=`rgba(52,211,153,${this.a})`;
+        ctx.fillStyle="rgba(52,211,153,.4)";
         ctx.fill();
     }
     update(){
-        this.x+=this.vx;
-        this.y+=this.vy;
+        this.x+=this.vx;this.y+=this.vy;
         if(this.x<0||this.x>w) this.vx*=-1;
         if(this.y<0||this.y>h) this.vy*=-1;
     }
 }
-
-for(let i=0;i<120;i++) particles.push(new Particle());
-
-function animate(){
+for(let i=0;i<120;i++) p.push(new Particle());
+(function anim(){
     ctx.clearRect(0,0,w,h);
-    particles.forEach(p=>{p.update();p.draw();});
-    requestAnimationFrame(animate);
-}
-animate();
+    p.forEach(x=>{x.update();x.draw()});
+    requestAnimationFrame(anim);
+})();
 </script>
 
 </body>
