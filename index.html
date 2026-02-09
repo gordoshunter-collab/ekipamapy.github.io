@@ -9,7 +9,6 @@
 :root{
   --green:#34d399;
   --bg:#020617;
-  --glass:rgba(15,23,42,.55);
   --text:#94a3b8;
 }
 
@@ -23,10 +22,10 @@ nav{
   top:0;left:0;right:0;
   display:flex;
   justify-content:center;
-  z-index:999;
   backdrop-filter:blur(12px);
-  background:rgba(2,6,23,.35);
+  background:rgba(2,6,23,.4);
   border-bottom:1px solid rgba(255,255,255,.08);
+  z-index:999;
 }
 nav ul{
   list-style:none;
@@ -41,12 +40,26 @@ nav a{
   transition:.25s;
 }
 nav a:hover{color:var(--green)}
+nav a.active{
+  color:var(--green);
+  position:relative;
+}
+nav a.active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:100%;
+  height:2px;
+  background:var(--green);
+  box-shadow:0 0 10px rgba(52,211,153,.8);
+}
 
 /* ===== PARTICLES ===== */
 #particles{position:fixed;inset:0;z-index:-1}
 
 /* ===== HERO ===== */
-.hero{
+header{
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -55,19 +68,19 @@ nav a:hover{color:var(--green)}
   text-align:center;
   padding-top:100px;
 }
-.hero h1{
+header h1{
   font-size:clamp(3rem,8vw,5.5rem);
 }
-.hero h1 span{
+header h1 span{
   color:var(--green);
   text-shadow:0 0 25px rgba(52,211,153,.8);
 }
-.hero p{
+header p{
   margin-top:25px;
   color:var(--text);
   font-size:1.3rem;
 }
-.hero a{
+header a{
   margin-top:45px;
   padding:18px 55px;
   background:var(--green);
@@ -78,7 +91,7 @@ nav a:hover{color:var(--green)}
   box-shadow:0 0 40px rgba(52,211,153,.45);
   transition:.25s;
 }
-.hero a:hover{transform:translateY(-4px) scale(1.05)}
+header a:hover{transform:translateY(-4px) scale(1.05)}
 
 /* ===== SECTIONS ===== */
 section{
@@ -113,7 +126,7 @@ section h2{
 .card h3{color:var(--green);margin-bottom:10px}
 
 /* ===== COMMUNITY ===== */
-#community .stack{
+.stack{
   max-width:520px;
   margin:auto;
   display:flex;
@@ -172,7 +185,6 @@ footer{
 
 <canvas id="particles"></canvas>
 
-<!-- NAVBAR -->
 <nav>
 <ul>
   <li><a href="#community">IP</a></li>
@@ -182,7 +194,7 @@ footer{
 </ul>
 </nav>
 
-<header class="hero">
+<header id="home">
   <h1>EKIPA <span>MAPY</span></h1>
   <p>Wspólna mapa • Survival • Społeczność</p>
   <a href="#community">Dołącz do serwera</a>
@@ -217,7 +229,7 @@ footer{
 <section id="rekrutacja">
 <h2>Rekrutacja</h2>
 <div class="recruit">
-  <p>Szukamy moderatorów i adminów. Jeśli chcesz pomóc w rozwoju serwera – dołącz do rekrutacji.</p>
+  <p>Szukamy moderatorów i adminów. Chcesz współtworzyć Ekipa Mapy?</p>
   <a href="#discord">Zgłoś się na Discordzie</a>
 </div>
 </section>
@@ -239,7 +251,27 @@ const obs=new IntersectionObserver(e=>{
 },{threshold:.2});
 document.querySelectorAll(".card").forEach(c=>obs.observe(c));
 
-/* PARTICLES BLOKI MC */
+/* ACTIVE NAV */
+const sections=document.querySelectorAll("section, header");
+const navLinks=document.querySelectorAll("nav a");
+
+function activateLink(){
+  let scrollY=window.scrollY+150;
+  sections.forEach(sec=>{
+    const top=sec.offsetTop;
+    const height=sec.offsetHeight;
+    const id=sec.getAttribute("id");
+    if(id && scrollY>=top && scrollY<top+height){
+      navLinks.forEach(a=>a.classList.remove("active"));
+      const active=document.querySelector(`nav a[href="#${id}"]`);
+      if(active) active.classList.add("active");
+    }
+  });
+}
+window.addEventListener("scroll",activateLink);
+activateLink();
+
+/* PARTICLES MC */
 const c=particles,ctx=c.getContext("2d");
 let w,h,b=[];
 function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
@@ -270,6 +302,10 @@ for(let i=0;i<120;i++) b.push(new Block());
   requestAnimationFrame(anim);
 })();
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
