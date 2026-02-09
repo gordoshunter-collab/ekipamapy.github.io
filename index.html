@@ -7,222 +7,267 @@
 
 <style>
 :root{
-    --green:#34d399;
-    --bg:#020617;
-    --text:#94a3b8;
+  --green:#34d399;
+  --bg:#020617;
+  --glass:rgba(15,23,42,.55);
+  --text:#94a3b8;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;}
-html{scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif}
+html{scroll-behavior:smooth}
 body{background:var(--bg);color:white;overflow-x:hidden}
 
-/* ===== PARTICLES (MC BLOCKS) ===== */
-#particles{
-    position:fixed;
-    inset:0;
-    z-index:-1;
+/* ===== NAVBAR ===== */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  display:flex;
+  justify-content:center;
+  z-index:999;
+  backdrop-filter:blur(12px);
+  background:rgba(2,6,23,.35);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:30px;
+  padding:18px 30px;
+}
+nav a{
+  color:#cbd5f5;
+  text-decoration:none;
+  font-weight:600;
+  transition:.25s;
+}
+nav a:hover{color:var(--green)}
 
-/* ===== OGŁOSZENIA ===== */
-.announcement-bar{
-    background:rgba(8,40,35,.9);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.08);
-    overflow:hidden;
-}
-.announcement-text{
-    padding:10px 0;
-    white-space:nowrap;
-    color:#6ee7b7;
-    animation:scroll 30s linear infinite;
-}
-@keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+/* ===== PARTICLES ===== */
+#particles{position:fixed;inset:0;z-index:-1}
 
 /* ===== HERO ===== */
 .hero{
-    min-height:90vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    background:radial-gradient(circle at top, rgba(16,185,129,.25), transparent 60%);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding-top:100px;
 }
-.status{
-    display:flex;align-items:center;gap:10px;
-    background:rgba(16,185,129,.15);
-    color:var(--green);
-    padding:8px 20px;border-radius:999px;
-    margin-bottom:35px;
+.hero h1{
+  font-size:clamp(3rem,8vw,5.5rem);
 }
-.status span{
-    width:10px;height:10px;border-radius:50%;
-    background:#22c55e;box-shadow:0 0 12px #22c55e;
+.hero h1 span{
+  color:var(--green);
+  text-shadow:0 0 25px rgba(52,211,153,.8);
 }
-.hero h1{font-size:clamp(3rem,8vw,5.5rem);letter-spacing:3px}
-.hero h1 span{color:var(--green);text-shadow:0 0 25px rgba(52,211,153,.8)}
-.hero p{margin-top:25px;font-size:1.4rem;color:var(--text)}
+.hero p{
+  margin-top:25px;
+  color:var(--text);
+  font-size:1.3rem;
+}
 .hero a{
-    margin-top:50px;padding:20px 55px;
-    background:var(--green);color:#022c22;
-    font-weight:700;border-radius:14px;text-decoration:none;
-    box-shadow:0 0 40px rgba(52,211,153,.5);
-    transition:.25s;
+  margin-top:45px;
+  padding:18px 55px;
+  background:var(--green);
+  color:#022c22;
+  font-weight:700;
+  border-radius:14px;
+  text-decoration:none;
+  box-shadow:0 0 40px rgba(52,211,153,.45);
+  transition:.25s;
 }
 .hero a:hover{transform:translateY(-4px) scale(1.05)}
 
-/* ===== SEKCJE ===== */
-section{padding:100px 20px;max-width:1100px;margin:auto;text-align:center}
-section h2{font-size:2.4rem;color:var(--green);margin-bottom:50px}
+/* ===== SECTIONS ===== */
+section{
+  padding:120px 20px;
+  max-width:1100px;
+  margin:auto;
+  text-align:center;
+}
+section h2{
+  font-size:2.4rem;
+  color:var(--green);
+  margin-bottom:50px;
+}
 
-/* ===== KARTY ===== */
+/* ===== CARDS ===== */
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
 }
 .card{
-    background:rgba(255,255,255,.05);
-    backdrop-filter:blur(12px);
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 0 30px rgba(52,211,153,.12);
-    opacity:0;
-    transform:translateY(40px);
-    transition:.6s;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 0 30px rgba(52,211,153,.12);
+  opacity:0;
+  transform:translateY(40px);
+  transition:.6s;
 }
-.card.show{
-    opacity:1;
-    transform:translateY(0);
-}
+.card.show{opacity:1;transform:translateY(0)}
 .card h3{color:var(--green);margin-bottom:10px}
 
 /* ===== COMMUNITY ===== */
-#community{display:flex;justify-content:center}
-.stack{max-width:520px;width:100%;display:flex;flex-direction:column;gap:50px}
+#community .stack{
+  max-width:520px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:50px;
+}
 .box{
-    background:rgba(255,255,255,.05);
-    backdrop-filter:blur(12px);
-    border-radius:22px;
-    padding:40px;
-    box-shadow:0 0 40px rgba(52,211,153,.15);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  border-radius:22px;
+  padding:40px;
+  box-shadow:0 0 40px rgba(52,211,153,.15);
 }
 .ip{font-size:2rem;margin:20px 0;color:#86efac}
 button{
-    padding:14px 35px;
-    background:var(--green);
-    border:none;border-radius:12px;
-    font-weight:700;cursor:pointer;
-    box-shadow:0 0 30px rgba(52,211,153,.45);
+  padding:14px 35px;
+  background:var(--green);
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
 }
-.discord iframe{width:100%;height:420px;border:none;border-radius:14px}
+.discord iframe{
+  width:100%;
+  height:420px;
+  border:none;
+  border-radius:14px;
+}
+
+/* ===== REKRUTACJA ===== */
+.recruit{
+  max-width:600px;
+  margin:auto;
+}
+.recruit p{color:var(--text);margin-bottom:30px}
+.recruit a{
+  padding:16px 45px;
+  background:var(--green);
+  color:#022c22;
+  border-radius:14px;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow:0 0 35px rgba(52,211,153,.4);
+}
 
 /* ===== FOOTER ===== */
-footer{text-align:center;padding:35px;color:var(--text);border-top:1px solid rgba(255,255,255,.08)}
+footer{
+  text-align:center;
+  padding:40px;
+  color:var(--text);
+  border-top:1px solid rgba(255,255,255,.08);
+}
 </style>
 </head>
 <body>
 
 <canvas id="particles"></canvas>
 
-<div class="announcement-bar">
-    <div class="announcement-text">
-        🔔 Ekipa Mapy • Survival • Jedna mapa • Dołącz do gry już teraz!
-    </div>
-</div>
+<!-- NAVBAR -->
+<nav>
+<ul>
+  <li><a href="#community">IP</a></li>
+  <li><a href="#discord">Discord</a></li>
+  <li><a href="#admin">Administracja</a></li>
+  <li><a href="#rekrutacja">Rekrutacja</a></li>
+</ul>
+</nav>
 
 <header class="hero">
-    <div class="status"><span></span> SERWER ONLINE 1.21+</div>
-    <h1>EKIPA <span>MAPY</span></h1>
-    <p>Wspólne budowanie • Społeczność • Klimat</p>
-    <a href="#community">Dołącz do serwera ↓</a>
+  <h1>EKIPA <span>MAPY</span></h1>
+  <p>Wspólna mapa • Survival • Społeczność</p>
+  <a href="#community">Dołącz do serwera</a>
 </header>
 
-<section>
-    <h2>O serwerze</h2>
-    <div class="grid">
-        <div class="card"><h3>🌍 Survival</h3><p>Bez pay-to-win.</p></div>
-        <div class="card"><h3>🏗️ Jedna mapa</h3><p>Rozwijana przez wszystkich.</p></div>
-        <div class="card"><h3>⚙️ Stabilność</h3><p>Backupy i optymalizacja.</p></div>
-    </div>
-</section>
-
-<section>
-    <h2>Administracja</h2>
-    <div class="grid">
-        <div class="card"><h3>👑 Właściciel</h3><p>Grześ</p></div>
-        <div class="card"><h3>🛠️ Admin</h3><p>Admin1, Admin2</p></div>
-        <div class="card"><h3>🧑‍💼 Moderator</h3><p>Mod1, Mod2</p></div>
-    </div>
+<section id="admin">
+<h2>Administracja</h2>
+<div class="grid">
+  <div class="card"><h3>👑 Właściciel</h3><p>Grześ</p></div>
+  <div class="card"><h3>🛠️ Admin</h3><p>Admin1, Admin2</p></div>
+  <div class="card"><h3>🧑‍💼 Moderator</h3><p>Mod1, Mod2</p></div>
+</div>
 </section>
 
 <section id="community">
-    <div class="stack">
+<h2>Społeczność</h2>
+<div class="stack">
+  <div class="box">
+    <h3>Adres IP</h3>
+    <div class="ip" id="ip">ekipamapy.pl</div>
+    <button onclick="copyIP()">Kopiuj IP</button>
+    <div id="info"></div>
+  </div>
 
-        <div class="box">
-            <h2>Adres IP</h2>
-            <div class="ip" id="ip">ekipamapy.pl</div>
-            <button onclick="copyIP()">Kopiuj IP</button>
-            <div id="info"></div>
-        </div>
+  <div class="box discord" id="discord">
+    <h3>Discord</h3>
+    <iframe src="https://discord.com/widget?id=123456789012345678&theme=dark"></iframe>
+  </div>
+</div>
+</section>
 
-        <div class="box discord">
-            <h2>Discord</h2>
-            <iframe src="https://discord.com/widget?id=12935531476456572118&theme=dark"
-            allowtransparency="true"
-            sandbox="allow-popups allow-scripts allow-same-origin"></iframe>
-        </div>
-
-    </div>
+<section id="rekrutacja">
+<h2>Rekrutacja</h2>
+<div class="recruit">
+  <p>Szukamy moderatorów i adminów. Jeśli chcesz pomóc w rozwoju serwera – dołącz do rekrutacji.</p>
+  <a href="#discord">Zgłoś się na Discordzie</a>
+</div>
 </section>
 
 <footer>
-    © 2026 Ekipa Mapy • Niepowiązane z Mojang ani Microsoft
+© 2026 Ekipa Mapy • Niepowiązane z Mojang ani Microsoft
 </footer>
 
 <script>
 /* COPY IP */
 function copyIP(){
-    navigator.clipboard.writeText(ip.innerText);
-    info.innerText="IP skopiowane!";
+  navigator.clipboard.writeText(ip.innerText);
+  info.innerText="IP skopiowane!";
 }
 
 /* ANIMACJE KART */
 const obs=new IntersectionObserver(e=>{
-    e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"))
+  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"))
 },{threshold:.2});
 document.querySelectorAll(".card").forEach(c=>obs.observe(c));
 
-/* PARTICLES = BLOKI MC */
+/* PARTICLES BLOKI MC */
 const c=particles,ctx=c.getContext("2d");
 let w,h,b=[];
 function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
 addEventListener("resize",resize);resize();
-
 class Block{
-    constructor(){
-        this.x=Math.random()*w;
-        this.y=Math.random()*h;
-        this.s=Math.random()*6+4;
-        this.vx=(Math.random()-.5)*.3;
-        this.vy=(Math.random()-.5)*.3;
-        this.a=Math.random()*.4+.2;
-    }
-    draw(){
-        ctx.fillStyle=`rgba(52,211,153,${this.a})`;
-        ctx.fillRect(this.x,this.y,this.s,this.s);
-    }
-    update(){
-        this.x+=this.vx;this.y+=this.vy;
-        if(this.x<0||this.x>w) this.vx*=-1;
-        if(this.y<0||this.y>h) this.vy*=-1;
-    }
+  constructor(){
+    this.x=Math.random()*w;
+    this.y=Math.random()*h;
+    this.s=Math.random()*6+4;
+    this.vx=(Math.random()-.5)*.3;
+    this.vy=(Math.random()-.5)*.3;
+    this.a=Math.random()*.4+.2;
+  }
+  draw(){
+    ctx.fillStyle=`rgba(52,211,153,${this.a})`;
+    ctx.fillRect(this.x,this.y,this.s,this.s);
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>w) this.vx*=-1;
+    if(this.y<0||this.y>h) this.vy*=-1;
+  }
 }
 for(let i=0;i<120;i++) b.push(new Block());
 (function anim(){
-    ctx.clearRect(0,0,w,h);
-    b.forEach(x=>{x.update();x.draw()});
-    requestAnimationFrame(anim);
+  ctx.clearRect(0,0,w,h);
+  b.forEach(x=>{x.update();x.draw()});
+  requestAnimationFrame(anim);
 })();
 </script>
 
