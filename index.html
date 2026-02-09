@@ -7,41 +7,67 @@
 
 <style>
 :root{
-  --green:#34d399;
-  --bg:#020617;
-  --text:#94a3b8;
+  --green:#3ddc84;
+  --bg:#0b0f0c;
+  --glass:rgba(255,255,255,.08);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,system-ui}
+
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:white;overflow-x:hidden}
+body{
+  background:radial-gradient(circle at top,#0f1a13,#070a08);
+  color:#e5e7eb;
+  overflow-x:hidden;
+}
+
+/* PARTICLES */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
 
 /* NAVBAR */
 nav{
   position:fixed;
-  top:0;left:0;right:0;
+  top:0;
+  width:100%;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,.35);
   display:flex;
   justify-content:center;
-  backdrop-filter:blur(12px);
-  background:rgba(2,6,23,.4);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  z-index:999;
+  gap:30px;
+  padding:14px;
+  z-index:100;
 }
-nav ul{list-style:none;display:flex;gap:30px;padding:18px 30px}
-nav a{color:#cbd5f5;text-decoration:none;font-weight:600}
-nav a.active{color:var(--green);position:relative}
+nav a{
+  color:#ccc;
+  text-decoration:none;
+  font-weight:600;
+  position:relative;
+  transition:.3s;
+}
+nav a:hover{color:white}
+nav a.active{
+  color:var(--green);
+}
 nav a.active::after{
   content:"";
   position:absolute;
-  left:0;bottom:-6px;
-  width:100%;height:2px;
+  left:0;
+  bottom:-6px;
+  width:100%;
+  height:2px;
   background:var(--green);
 }
 
-/* PARTICLES */
-#particles{position:fixed;inset:0;z-index:-1}
-
-/* HERO */
+/* SEKCJE */
+section,header{
+  max-width:1200px;
+  margin:auto;
+  padding:120px 20px;
+}
 header{
   min-height:100vh;
   display:flex;
@@ -49,219 +75,262 @@ header{
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding-top:100px;
 }
-header h1{font-size:clamp(3rem,8vw,5.5rem)}
-header h1 span{color:var(--green)}
-header p{margin-top:25px;color:var(--text);font-size:1.3rem}
-header a{
-  margin-top:45px;padding:18px 55px;
-  background:var(--green);color:#022c22;
-  font-weight:700;border-radius:14px;
-  text-decoration:none;
+h1{
+  font-size:3.2rem;
+  color:var(--green);
 }
+button{
+  margin-top:25px;
+  padding:14px 30px;
+  background:var(--green);
+  border:none;
+  border-radius:10px;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{transform:scale(1.05)}
 
-/* SECTIONS */
-section{padding:120px 20px;max-width:1100px;margin:auto;text-align:center}
-section h2{font-size:2.4rem;color:var(--green);margin-bottom:40px}
-
-/* CARDS */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+/* KARTY */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
 .card{
-  background:rgba(255,255,255,.05);
-  border-radius:20px;padding:30px;
-  opacity:0;transform:translateY(40px);
+  background:var(--glass);
+  padding:25px;
+  border-radius:16px;
+  backdrop-filter:blur(8px);
+  transform:translateY(30px);
+  opacity:0;
   transition:.6s;
 }
-.card.show{opacity:1;transform:translateY(0)}
-
-/* ===== OGŁOSZENIA ===== */
-.announcements{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:30px;
-  margin-bottom:80px;
-}
-.announcement-card{
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(12px);
-  border-left:5px solid var(--green);
-  padding:30px;
-  border-radius:18px;
-  text-align:left;
-  box-shadow:0 0 30px rgba(52,211,153,.15);
-}
-.announcement-card h3{color:#86efac;margin-bottom:10px}
-.announcement-card p{color:#cbd5f5;line-height:1.5}
-.announcement-card span{
-  display:block;
-  margin-top:15px;
-  color:var(--text);
-  font-size:.9rem;
+.card.show{
+  transform:none;
+  opacity:1;
 }
 
-/* COMMUNITY */
-.stack{max-width:520px;margin:auto;display:flex;flex-direction:column;gap:60px}
+/* SPOŁECZNOŚĆ */
+#community h2,
+#announcements h2{
+  margin-bottom:30px;
+  text-align:center;
+}
+
+/* OGŁOSZENIA */
+#announcements{
+  margin-top:60px;
+}
+.announcement{
+  background:rgba(0,0,0,.4);
+  padding:25px;
+  border-radius:14px;
+  margin-bottom:20px;
+}
+.announcement h3{color:var(--green);margin-bottom:10px}
+
+/* IP + DISCORD + REKRUTACJA */
 .box{
-  background:rgba(255,255,255,.05);
-  border-radius:22px;
-  padding:40px;
+  margin-top:80px;
+  background:var(--glass);
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
 }
-.ip{font-size:2rem;margin:20px 0;color:#86efac}
-button{
-  padding:14px 35px;
-  background:var(--green);
-  border:none;border-radius:12px;
-  font-weight:700;cursor:pointer;
-}
-.discord iframe{
-  width:100%;height:520px;border:none;border-radius:14px;
+.ip{
+  font-size:1.4rem;
+  font-weight:700;
+  margin-top:10px;
 }
 
-/* TOAST */
-.toast{
-  position:fixed;bottom:30px;right:30px;
-  background:rgba(15,23,42,.9);
-  padding:18px 22px;border-radius:14px;
-  opacity:0;transform:translateY(30px);
-  transition:.4s;pointer-events:none;
+/* DISCORD */
+iframe{
+  width:100%;
+  height:350px;
+  border:none;
+  border-radius:14px;
 }
-.toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
+
+/* NOTYFIKACJE */
+#toasts{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:999;
+}
+.toast{
+  background:rgba(20,20,20,.95);
+  padding:16px 20px;
+  border-left:4px solid var(--green);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  animation:slideIn .4s ease;
+}
+.toast span{
+  cursor:pointer;
+  opacity:.7;
+}
+@keyframes slideIn{
+  from{transform:translateX(120%);opacity:0}
+  to{transform:none;opacity:1}
+}
+@keyframes slideOut{
+  to{transform:translateX(120%);opacity:0}
+}
 
 /* FOOTER */
-footer{text-align:center;padding:40px;color:var(--text);border-top:1px solid rgba(255,255,255,.08)}
+footer{
+  padding:40px;
+  text-align:center;
+  opacity:.6;
+}
 </style>
 </head>
+
 <body>
 
-<canvas id="particles"></canvas>
-
-<div class="toast" id="toast">
-  IP skopiowane ✨ <button onclick="hideToast()">✕</button>
-</div>
+<canvas id="bg"></canvas>
 
 <nav>
-<ul>
-  <li><a href="#community">IP</a></li>
-  <li><a href="#discord">Discord</a></li>
-  <li><a href="#admin">Administracja</a></li>
-  <li><a href="#rekrutacja">Rekrutacja</a></li>
-</ul>
+  <a href="#community">IP</a>
+  <a href="#discord">Discord</a>
+  <a href="#admin">Administracja</a>
+  <a href="#rekrutacja">Rekrutacja</a>
 </nav>
 
 <header id="home">
-  <h1>EKIPA <span>MAPY</span></h1>
-  <p>Wspólna mapa • Survival • Społeczność</p>
-  <a href="#community">Dołącz do serwera</a>
+  <h1>Ekipa Mapy</h1>
+  <p>Nowoczesny serwer Minecraft dla społeczności</p>
+  <button onclick="location.href='#community'">Dołącz do gry</button>
 </header>
 
-<section id="admin">
-<h2>Administracja</h2>
-<div class="grid">
-  <div class="card"><h3>👑 Właściciel</h3><p>Grześ</p></div>
-  <div class="card"><h3>🛠️ Admin</h3><p>Admin1, Admin2</p></div>
-  <div class="card"><h3>🧑‍💼 Moderator</h3><p>Mod1, Mod2</p></div>
-</div>
+<section id="community">
+  <h2>Społeczność</h2>
+
+  <!-- OGŁOSZENIA -->
+  <section id="announcements">
+    <h2>Ogłoszenia</h2>
+
+    <div class="announcement">
+      <h3>🔔 Start sezonu</h3>
+      <p>Nowa mapa już wystartowała. Zapraszamy wszystkich graczy!</p>
+    </div>
+
+    <div class="announcement">
+      <h3>🎁 Event weekendowy</h3>
+      <p>W sobotę i niedzielę drop x2 oraz konkursy.</p>
+    </div>
+
+  </section>
+
+  <div class="box">
+    <h3>IP Serwera</h3>
+    <div class="ip" id="ip">ekipamapy.pl</div>
+    <button onclick="copyIP()">Skopiuj IP</button>
+  </div>
 </section>
 
-<section id="community">
-<h2>Społeczność</h2>
-
-<!-- OGŁOSZENIA -->
-<div class="announcements">
-  <div class="announcement-card">
-    <h3>🔔 Start serwera</h3>
-    <p>Oficjalny start serwera Ekipa Mapy już w ten piątek o 18:00!</p>
-    <span>08.02.2026</span>
-  </div>
-
-  <div class="announcement-card">
-    <h3>🎉 Event budowlany</h3>
-    <p>Budujemy spawn razem! Najlepsze projekty dostaną rangi.</p>
-    <span>10.02.2026</span>
-  </div>
-</div>
-
-<div class="stack">
+<section id="discord">
   <div class="box">
-    <h3>Adres IP</h3>
-    <div class="ip" id="ip">ekipamapy.pl</div>
-    <button onclick="copyIP()">Kopiuj IP</button>
-  </div>
-
-  <div class="box discord" id="discord">
     <h3>Discord</h3>
-    <iframe src="https://discord.com/widget?id=123456789012345678&theme=dark"></iframe>
+    <iframe src="https://discord.com/widget?id=000000000000000000&theme=dark"></iframe>
   </div>
-</div>
+</section>
+
+<section id="admin">
+  <h2>Administracja</h2>
+  <div class="grid">
+    <div class="card">👑 Owner<br>EkipaMapy</div>
+    <div class="card">🛠 Admin<br>AdminPL</div>
+    <div class="card">🧩 Moderator<br>ModPL</div>
+  </div>
 </section>
 
 <section id="rekrutacja">
-<h2>Rekrutacja</h2>
-<p>Szukamy moderatorów i adminów. Zgłoś się na Discordzie.</p>
+  <div class="box">
+    <h2>Rekrutacja</h2>
+    <p>Szukamy administracji i moderatorów.</p>
+    <button onclick="alert('Rekrutacja wkrótce')">Zgłoś się</button>
+  </div>
 </section>
 
 <footer>
-© 2026 Ekipa Mapy • Niepowiązane z Mojang ani Microsoft
+  © 2026 Ekipa Mapy • Minecraft Server
 </footer>
 
+<div id="toasts"></div>
+
 <script>
-/* COPY IP + TOAST */
-let timer;
-function copyIP(){
-  navigator.clipboard.writeText(ip.innerText);
-  toast.classList.add("show");
-  clearTimeout(timer);
-  timer=setTimeout(hideToast,4000);
+/* PARTICLES BLOKI MC */
+const c=document.getElementById("bg"),x=c.getContext("2d");
+let w=c.width=innerWidth,h=c.height=innerHeight;
+let blocks=[...Array(60)].map(()=>({
+  x:Math.random()*w,
+  y:Math.random()*h,
+  s:Math.random()*4+2,
+  v:Math.random()*0.5+0.2
+}));
+function draw(){
+  x.clearRect(0,0,w,h);
+  x.fillStyle="#3ddc84";
+  blocks.forEach(b=>{
+    x.fillRect(b.x,b.y,b.s,b.s);
+    b.y+=b.v;
+    if(b.y>h)b.y=0;
+  });
+  requestAnimationFrame(draw);
 }
-function hideToast(){toast.classList.remove("show")}
+draw();
+onresize=()=>{w=c.width=innerWidth;h=c.height=innerHeight}
 
-/* CARD ANIM */
+/* ANIMACJE KART */
+const cards=document.querySelectorAll(".card");
 const obs=new IntersectionObserver(e=>{
-  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"))
+  e.forEach(v=>v.isIntersecting&&v.target.classList.add("show"))
 },{threshold:.2});
-document.querySelectorAll(".card").forEach(c=>obs.observe(c));
+cards.forEach(c=>obs.observe(c));
 
-/* ACTIVE NAV */
+/* AKTYWNY NAV */
 const sections=document.querySelectorAll("section,header");
 const links=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
+addEventListener("scroll",()=>{
   let y=scrollY+150;
   sections.forEach(s=>{
-    let id=s.id;
-    if(id && y>=s.offsetTop && y<s.offsetTop+s.offsetHeight){
+    if(s.id && y>=s.offsetTop && y<s.offsetTop+s.offsetHeight){
       links.forEach(a=>a.classList.remove("active"));
-      document.querySelector(`nav a[href="#${id}"]`)?.classList.add("active");
+      let a=document.querySelector(`nav a[href="#${s.id}"]`);
+      if(a)a.classList.add("active");
     }
   });
 });
 
-/* PARTICLES MC */
-const c=particles,ctx=c.getContext("2d");
-let w,h,b=[];
-function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
-addEventListener("resize",resize);resize();
-class Block{
-  constructor(){
-    this.x=Math.random()*w;this.y=Math.random()*h;
-    this.s=Math.random()*6+4;
-    this.vx=(Math.random()-.5)*.3;
-    this.vy=(Math.random()-.5)*.3;
-    this.a=Math.random()*.4+.2;
-  }
-  draw(){ctx.fillStyle=`rgba(52,211,153,${this.a})`;ctx.fillRect(this.x,this.y,this.s,this.s)}
-  update(){
-    this.x+=this.vx;this.y+=this.vy;
-    if(this.x<0||this.x>w) this.vx*=-1;
-    if(this.y<0||this.y>h) this.vy*=-1;
-  }
+/* TOAST */
+function toast(msg){
+  const t=document.createElement("div");
+  t.className="toast";
+  t.innerHTML=`<div>${msg}</div><span onclick="closeToast(this)">✖</span>`;
+  document.getElementById("toasts").appendChild(t);
+  setTimeout(()=>closeToast(t.querySelector("span")),4500);
 }
-for(let i=0;i<120;i++) b.push(new Block());
-(function anim(){
-  ctx.clearRect(0,0,w,h);
-  b.forEach(x=>{x.update();x.draw()});
-  requestAnimationFrame(anim);
-})();
+function closeToast(el){
+  const t=el.parentElement;
+  t.style.animation="slideOut .4s forwards";
+  setTimeout(()=>t.remove(),400);
+}
+
+/* COPY IP */
+function copyIP(){
+  navigator.clipboard.writeText("ekipamapy.pl");
+  toast("✅ Skopiowano IP serwera");
+}
 </script>
 
 </body>
