@@ -518,13 +518,13 @@ function zamknijInfo(){
 
     <br>
 
-    <a href="javascript:void(0)"
-    class="rank-btn"
-    onclick="pokazInfo('admin')">
+<a href="javascript:void(0)"
+   class="rank-btn"
+   onclick="pokazInfo('admin')">
 
-    Informacje
+  Informacje
 
-    </a>
+</a>
 
   </div>
 
@@ -593,7 +593,43 @@ function zamknijInfo(){
   </div>
 
 </div>
+<!-- ===== POPUP INFORMACJI ===== -->
 
+<div class="notify" id="rankInfo">
+
+  <div class="notify-box">
+
+    <div class="notify-icon" id="infoIcon">
+      🛠️
+    </div>
+
+    <div class="notify-title" id="infoTitle">
+      Admin
+    </div>
+
+    <div class="notify-text" id="infoText">
+      Informacje o randze.
+    </div>
+
+    <div class="popup-buttons">
+
+      <a href="#"
+         class="apply-btn"
+         id="applyBtn">
+
+        Złóż podanie
+
+      </a>
+
+      <button onclick="zamknijInfo()">
+        Zamknij
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 <footer>
 © 2026 Ekipa Mapy • Panel Administracji
 </footer>
