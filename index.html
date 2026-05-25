@@ -337,9 +337,144 @@ footer{
 .server-page a:hover{
   text-decoration:underline;
 }
+/* ===== WELCOME POPUP ===== */
+
+.welcome-popup{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(10px);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:999999;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.35s;
+}
+
+.welcome-popup.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.welcome-box{
+
+  width:500px;
+  max-width:92%;
+
+  background:#0f172a;
+
+  border-radius:30px;
+
+  padding:50px;
+
+  text-align:center;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+  0 0 60px rgba(52,211,153,.18);
+
+  animation:welcomeAnim .35s ease;
+}
+
+.welcome-icon{
+  font-size:5rem;
+  margin-bottom:25px;
+}
+
+.welcome-title{
+  font-size:2.3rem;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.welcome-text{
+  color:#cbd5e1;
+  line-height:1.7;
+  margin-bottom:35px;
+}
+
+.welcome-box button{
+
+  padding:16px 34px;
+
+  border:none;
+  border-radius:16px;
+
+  background:
+  linear-gradient(135deg,#34d399,#10b981);
+
+  color:#022c22;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.welcome-box button:hover{
+  transform:scale(1.05);
+}
+
+@keyframes welcomeAnim{
+
+  from{
+    transform:scale(.8);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
 </style>
 </head>
 
+<script>
+
+/* ===== USTAWIENIE ===== */
+
+/*
+true = popup włączony
+false = popup wyłączony
+*/
+
+const welcomeEnabled = true;
+
+
+/* ===== SYSTEM ===== */
+
+window.addEventListener("load",()=>{
+
+  if(welcomeEnabled){
+
+    document
+      .getElementById("welcomePopup")
+      .classList.add("show");
+
+  }
+
+});
+
+function zamknijWelcome(){
+
+  document
+    .getElementById("welcomePopup")
+    .classList.remove("show");
+
+}
+
+</script>
 <body>
 
 <canvas id="particles"></canvas>
@@ -631,6 +766,31 @@ for(let i=0;i<120;i++){
 })();
 
 </script>
+<!-- ===== START POPUP ===== -->
 
+<div class="welcome-popup" id="welcomePopup">
+
+  <div class="welcome-box">
+
+    <div class="welcome-icon">
+      🌍
+    </div>
+
+    <div class="welcome-title">
+      Witaj na Ekipa Mapy
+    </div>
+
+    <div class="welcome-text">
+      Oficjalna strona społeczności serwera Minecraft.
+      Życzymy miłego pobytu ✨
+    </div>
+
+    <button onclick="zamknijWelcome()">
+      Wejdź na stronę
+    </button>
+
+  </div>
+
+</div>
 </body>
 </html>
