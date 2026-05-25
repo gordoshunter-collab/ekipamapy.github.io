@@ -190,9 +190,113 @@ footer{
   color:var(--text);
   border-top:1px solid rgba(255,255,255,.08);
 }
+/* ===== POWIADOMIENIE ===== */
 
+.notify{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(8px);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+
+  z-index:99999;
+}
+
+.notify.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.notify-box{
+  width:420px;
+  max-width:90%;
+  background:#0f172a;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:28px;
+  padding:40px;
+
+  text-align:center;
+
+  box-shadow:
+  0 0 40px rgba(52,211,153,.15);
+  
+  animation:popup .3s ease;
+}
+
+.notify-icon{
+  font-size:4rem;
+  margin-bottom:20px;
+}
+
+.notify-title{
+  font-size:2rem;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.notify-text{
+  color:#cbd5e1;
+  line-height:1.6;
+  margin-bottom:30px;
+}
+
+.notify button{
+  padding:14px 32px;
+  border:none;
+  border-radius:14px;
+
+  background:linear-gradient(135deg,#34d399,#10b981);
+
+  color:#022c22;
+  font-weight:800;
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.notify button:hover{
+  transform:scale(1.05);
+}
+
+@keyframes popup{
+
+  from{
+    transform:scale(.8);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
 </style>
 </head>
+  <script>
+
+function zamknietaRekrutacja(){
+  document
+    .getElementById("notify")
+    .classList.add("show");
+}
+
+function zamknijPowiadomienie(){
+  document
+    .getElementById("notify")
+    .classList.remove("show");
+}
+
+</script>
 <body>
 
 <!-- NAV -->
@@ -243,7 +347,9 @@ footer{
     <a href="javascript:void(0)"
     class="rank-btn"
     onclick="zamknietaRekrutacja()">
+
     Niedostępne
+
     </a>
 
 
@@ -330,7 +436,9 @@ footer{
     <a href="javascript:void(0)"
     class="rank-btn"
     onclick="zamknietaRekrutacja()">
+
     Niedostępne
+
     </a>
 
   </div>
@@ -340,12 +448,26 @@ footer{
 <footer>
 © 2026 Ekipa Mapy • Panel Administracji
 </footer>
-<script>
+<div class="notify" id="notify">
+  <div class="notify-box">
 
-function zamknietaRekrutacja(){
-  alert("❌ Rekrutacja na tę rangę jest obecnie zamknięta.");
-}
+    <div class="notify-icon">
+      🔒
+    </div>
 
-</script>
+    <div class="notify-title">
+      Rekrutacja zamknięta
+    </div>
+
+    <div class="notify-text">
+      Ta ranga nie przyjmuje obecnie podań.
+    </div>
+
+    <button onclick="zamknijPowiadomienie()">
+      Rozumiem
+    </button>
+
+  </div>
+</div>
 </body>
 </html>
