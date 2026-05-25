@@ -280,6 +280,37 @@ footer{
   }
 
 }
+
+  /* ===== BUTTONY W POPUPIE ===== */
+
+.popup-buttons{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.apply-btn{
+
+  padding:14px 28px;
+
+  border-radius:14px;
+
+  text-decoration:none;
+
+  background:
+  linear-gradient(135deg,#34d399,#10b981);
+
+  color:#022c22;
+
+  font-weight:900;
+
+  transition:.25s;
+}
+
+.apply-btn:hover{
+  transform:scale(1.05);
+}
 </style>
 </head>
   <script>
@@ -317,11 +348,16 @@ function zamknijPowiadomienie(){
 
 /* ===== POPUP INFORMACJI ===== */
 
+<script>
+
 function pokazInfo(ranga){
 
   const title=document.getElementById("infoTitle");
   const text=document.getElementById("infoText");
   const icon=document.getElementById("infoIcon");
+  const apply=document.getElementById("applyBtn");
+
+  /* ===== ADMIN ===== */
 
   if(ranga==="admin"){
 
@@ -330,9 +366,14 @@ function pokazInfo(ranga){
     title.innerHTML="Admin";
 
     text.innerHTML=
-    "Admin pilnuje porządku na serwerze, zarządza eventami oraz pomaga graczom. Ta ranga posiada wysokie uprawnienia.";
+    "Admin pilnuje porządku na serwerze, zarządza eventami oraz pomaga graczom.";
 
+    apply.style.display="inline-block";
+
+    apply.href="https://twoj-link-do-podania.pl";
   }
+
+  /* ===== MOD ===== */
 
   if(ranga==="mod"){
 
@@ -341,9 +382,14 @@ function pokazInfo(ranga){
     title.innerHTML="Moderator";
 
     text.innerHTML=
-    "Moderator odpowiada za pilnowanie chatu, zgłoszeń oraz pomaganie społeczności.";
+    "Moderator odpowiada za chat, zgłoszenia i pomoc społeczności.";
 
+    apply.style.display="inline-block";
+
+    apply.href="https://twoj-link-do-podania.pl";
   }
+
+  /* ===== HELPER ===== */
 
   if(ranga==="helper"){
 
@@ -352,9 +398,12 @@ function pokazInfo(ranga){
     title.innerHTML="Helper";
 
     text.innerHTML=
-    "Helper pomaga nowym graczom i wspiera administrację serwera. Ma podstawowę uprawnienia. Może awansować na admina";
+    "Helper pomaga nowym graczom oraz wspiera administrację.";
 
+    apply.style.display="none";
   }
+
+  /* ===== OWNER ===== */
 
   if(ranga==="owner"){
 
@@ -363,8 +412,9 @@ function pokazInfo(ranga){
     title.innerHTML="Właściciel";
 
     text.innerHTML=
-    "Najwyższa ranga serwera. Zarządza wszystkimi systemami oraz administracją.";
+    "Najwyższa ranga serwera. Rekrutacja jest niedostępna.";
 
+    apply.style.display="none";
   }
 
   document
@@ -372,6 +422,14 @@ function pokazInfo(ranga){
     .classList.add("show");
 }
 
+function zamknijInfo(){
+
+  document
+    .getElementById("rankInfo")
+    .classList.remove("show");
+}
+
+</script>
 function zamknijInfo(){
 
   document
@@ -557,9 +615,21 @@ function zamknijInfo(){
       Informacje o randze.
     </div>
 
-    <button onclick="zamknijInfo()">
-      Zamknij
-    </button>
+<div class="popup-buttons">
+
+  <a href="#"
+     class="apply-btn"
+     id="applyBtn">
+
+    Złóż podanie
+
+  </a>
+
+  <button onclick="zamknijInfo()">
+    Zamknij
+  </button>
+
+</div>
 
   </div>
 
