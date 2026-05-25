@@ -297,6 +297,89 @@ function zamknijPowiadomienie(){
 }
 
 </script>
+<script>
+
+/* ===== POPUP REKRUTACJI ===== */
+
+function zamknietaRekrutacja(){
+
+  document
+    .getElementById("notify")
+    .classList.add("show");
+}
+
+function zamknijPowiadomienie(){
+
+  document
+    .getElementById("notify")
+    .classList.remove("show");
+}
+
+/* ===== POPUP INFORMACJI ===== */
+
+function pokazInfo(ranga){
+
+  const title=document.getElementById("infoTitle");
+  const text=document.getElementById("infoText");
+  const icon=document.getElementById("infoIcon");
+
+  if(ranga==="admin"){
+
+    icon.innerHTML="🛠️";
+
+    title.innerHTML="Admin";
+
+    text.innerHTML=
+    "Admin pilnuje porządku na serwerze, zarządza eventami oraz pomaga graczom. Ta ranga posiada wysokie uprawnienia.";
+
+  }
+
+  if(ranga==="mod"){
+
+    icon.innerHTML="🧑‍💼";
+
+    title.innerHTML="Moderator";
+
+    text.innerHTML=
+    "Moderator odpowiada za pilnowanie chatu, zgłoszeń oraz pomaganie społeczności.";
+
+  }
+
+  if(ranga==="helper"){
+
+    icon.innerHTML="✨";
+
+    title.innerHTML="Helper";
+
+    text.innerHTML=
+    "Helper pomaga nowym graczom i wspiera administrację serwera.";
+
+  }
+
+  if(ranga==="owner"){
+
+    icon.innerHTML="👑";
+
+    title.innerHTML="Właściciel";
+
+    text.innerHTML=
+    "Najwyższa ranga serwera. Zarządza wszystkimi systemami oraz administracją.";
+
+  }
+
+  document
+    .getElementById("rankInfo")
+    .classList.add("show");
+}
+
+function zamknijInfo(){
+
+  document
+    .getElementById("rankInfo")
+    .classList.remove("show");
+}
+
+</script>
 <body>
 
 <!-- NAV -->
@@ -377,8 +460,12 @@ function zamknijPowiadomienie(){
 
     <br>
 
-    <a href="#" class="rank-btn">
-      Złóż podanie
+    <a href="javascript:void(0)"
+    class="rank-btn"
+    onclick="pokazInfo('admin')">
+
+    Informacje
+
     </a>
 
   </div>
@@ -405,9 +492,13 @@ function zamknijPowiadomienie(){
 
     <br>
 
-    <a href="#" class="rank-btn">
-      Złóż podanie
-    </a>
+<a href="javascript:void(0)"
+   class="rank-btn"
+   onclick="pokazInfo('mod')">
+
+  Informacje
+
+</a>
 
   </div>
 
@@ -448,6 +539,31 @@ function zamknijPowiadomienie(){
 <footer>
 © 2026 Ekipa Mapy • Panel Administracji
 </footer>
+  <!-- ===== INFO POPUP ===== -->
+
+<div class="notify" id="rankInfo">
+
+  <div class="notify-box">
+
+    <div class="notify-icon" id="infoIcon">
+      🛠️
+    </div>
+
+    <div class="notify-title" id="infoTitle">
+      Admin
+    </div>
+
+    <div class="notify-text" id="infoText">
+      Informacje o randze.
+    </div>
+
+    <button onclick="zamknijInfo()">
+      Zamknij
+    </button>
+
+  </div>
+
+</div>
 <div class="notify" id="notify">
   <div class="notify-box">
 
@@ -471,3 +587,18 @@ function zamknijPowiadomienie(){
 </div>
 </body>
 </html>
+
+<!-- <a href="javascript:void(0)"
+   class="rank-btn"
+   onclick="pokazInfo('mod')">
+
+  Informacje
+
+</a> -->
+
+<!-- <a href="#" class="rank-btn">
+  Złóż podanie
+</a> -->
+
+
+
