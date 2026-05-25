@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Ekipa Mapy • Administracja</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+:root{
+  --green:#34d399;
+  --bg:#020617;
+  --text:#94a3b8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* NAV */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:center;
+  backdrop-filter:blur(12px);
+  background:rgba(2,6,23,.4);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  z-index:999;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:30px;
+  padding:18px 30px;
+}
+
+nav a{
+  color:#cbd5f5;
+  text-decoration:none;
+  font-weight:600;
+}
+
+nav a:hover{
+  color:var(--green);
+}
+
+/* HEADER */
+
+header{
+  padding-top:180px;
+  text-align:center;
+  padding-bottom:80px;
+}
+
+header h1{
+  font-size:5rem;
+  font-weight:900;
+}
+
+header h1 span{
+  color:var(--green);
+}
+
+header p{
+  margin-top:20px;
+  color:var(--text);
+  font-size:1.2rem;
+}
+
+/* RANGI */
+
+.rank-wrapper{
+  max-width:1300px;
+  margin:auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:35px;
+}
+
+.rank-card{
+  border-radius:28px;
+  padding:45px;
+  position:relative;
+  overflow:hidden;
+  transition:.35s;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.rank-card:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 0 40px rgba(52,211,153,.2);
+}
+
+.rank-small{
+  color:#dbeafe;
+  font-size:.9rem;
+  font-weight:700;
+  margin-bottom:20px;
+  letter-spacing:1px;
+}
+
+.rank-title{
+  font-size:3rem;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.rank-desc{
+  color:#e2e8f0;
+  line-height:1.7;
+  margin-bottom:35px;
+}
+
+/* STATUS */
+
+.status{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.on{
+  background:#14532d;
+  color:#86efac;
+}
+
+.off{
+  background:#450a0a;
+  color:#fca5a5;
+}
+
+/* BUTTON */
+
+.rank-btn{
+  display:inline-block;
+  padding:15px 28px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:800;
+  background:white;
+  color:#111827;
+  transition:.25s;
+}
+
+.rank-btn:hover{
+  transform:scale(1.05);
+}
+
+/* KOLORY */
+
+.owner{
+  background:linear-gradient(135deg,#312e81,#1e1b4b);
+}
+
+.admin{
+  background:linear-gradient(135deg,#065f46,#064e3b);
+}
+
+.mod{
+  background:linear-gradient(135deg,#1e3a8a,#172554);
+}
+
+.helper{
+  background:linear-gradient(135deg,#374151,#1f2937);
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:120px;
+  text-align:center;
+  padding:40px;
+  color:var(--text);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+<ul>
+  <li><a href="index.html">Strona główna</a></li>
+  <li><a href="administracja.html">Administracja</a></li>
+</ul>
+</nav>
+
+<!-- HEADER -->
+
+<header>
+  <h1>Panel <span>Administracji</span></h1>
+
+  <p>
+    Rekrutacje • Rangi • Formularze • Zarządzanie
+  </p>
+</header>
+
+<!-- RANGI -->
+
+<div class="rank-wrapper">
+
+  <!-- OWNER -->
+
+  <div class="rank-card owner">
+
+    <div class="rank-small">
+      NAJWYŻSZA RANGA
+    </div>
+
+    <div class="rank-title">
+      👑 Właściciel
+    </div>
+
+    <div class="rank-desc">
+      Zarządza całym serwerem oraz podejmuje wszystkie najważniejsze decyzje.
+    </div>
+
+    <div class="status off">
+      🔴 Rekrutacja zamknięta
+    </div>
+
+    <br>
+
+    <a href="#" class="rank-btn">
+      Niedostępne
+    </a>
+
+  </div>
+
+  <!-- ADMIN -->
+
+  <div class="rank-card admin">
+
+    <div class="rank-small">
+      ADMINISTRACJA
+    </div>
+
+    <div class="rank-title">
+      🛠️ Admin
+    </div>
+
+    <div class="rank-desc">
+      Pilnuje porządku, pomaga graczom i zarządza eventami.
+    </div>
+
+    <div class="status on">
+      🟢 Rekrutacja aktywna
+    </div>
+
+    <br>
+
+    <a href="#" class="rank-btn">
+      Złóż podanie
+    </a>
+
+  </div>
+
+  <!-- MOD -->
+
+  <div class="rank-card mod">
+
+    <div class="rank-small">
+      MODERACJA
+    </div>
+
+    <div class="rank-title">
+      🧑‍💼 Moderator
+    </div>
+
+    <div class="rank-desc">
+      Dba o chat, zgłoszenia i pomaga społeczności serwera.
+    </div>
+
+    <div class="status on">
+      🟢 Rekrutacja aktywna
+    </div>
+
+    <br>
+
+    <a href="#" class="rank-btn">
+      Złóż podanie
+    </a>
+
+  </div>
+
+  <!-- HELPER -->
+
+  <div class="rank-card helper">
+
+    <div class="rank-small">
+      POMOCNIK
+    </div>
+
+    <div class="rank-title">
+      ✨ Helper
+    </div>
+
+    <div class="rank-desc">
+      Pomaga nowym graczom oraz wspiera administrację serwera.
+    </div>
+
+    <div class="status off">
+      🔴 Rekrutacja zamknięta
+    </div>
+
+    <br>
+
+    <a href="#" class="rank-btn">
+      Niedostępne
+    </a>
+
+  </div>
+
+</div>
+
+<footer>
+© 2026 Ekipa Mapy • Panel Administracji
+</footer>
+
+</body>
+</html>
