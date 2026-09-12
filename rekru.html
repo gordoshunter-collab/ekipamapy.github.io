@@ -1,317 +1,5 @@
+
 <!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<title>Ekipa Mapy • Rekrutacja</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-:root{
-  --green:#34d399;
-  --bg:#020617;
-  --text:#94a3b8;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Segoe UI",Arial,sans-serif;
-}
-
-body{
-  background:var(--bg);
-  color:white;
-  overflow-x:hidden;
-}
-
-/* NAV */
-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:center;
-  backdrop-filter:blur(12px);
-  background:rgba(2,6,23,.4);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  z-index:999;
-}
-
-nav ul{
-  list-style:none;
-  display:flex;
-  gap:30px;
-  padding:18px 30px;
-}
-
-nav a{
-  color:#cbd5f5;
-  text-decoration:none;
-  font-weight:600;
-}
-
-nav a:hover{ color:var(--green); }
-
-/* HEADER */
-header{
-  padding-top:180px;
-  text-align:center;
-  padding-bottom:80px;
-}
-
-header h1{
-  font-size:5rem;
-  font-weight:900;
-}
-
-header h1 span{ color:var(--green); }
-
-header p{ color:var(--text); margin-top:20px; }
-
-/* RANGI */
-.rank-wrapper{
-  max-width:1300px;
-  margin:auto;
-  padding:20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:35px;
-}
-
-.rank-card{
-  border-radius:28px;
-  padding:45px;
-  border:1px solid rgba(255,255,255,.08);
-  transition:.35s;
-}
-
-.rank-card:hover{
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:0 0 40px rgba(52,211,153,.2);
-}
-
-.rank-small{ color:#dbeafe; margin-bottom:20px; font-weight:700; }
-.rank-title{ font-size:3rem; font-weight:900; margin-bottom:20px; }
-.rank-desc{ color:#e2e8f0; margin-bottom:35px; line-height:1.7; }
-
-.status{
-  display:inline-block;
-  padding:10px 18px;
-  border-radius:999px;
-  font-weight:700;
-  margin-bottom:25px;
-}
-
-.on{ background:#14532d; color:#86efac; }
-.off{ background:#450a0a; color:#fca5a5; }
-
-.rank-btn{
-  display:inline-block;
-  padding:15px 28px;
-  border-radius:14px;
-  background:white;
-  color:#111827;
-  text-decoration:none;
-  font-weight:800;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.rank-btn:hover{ transform:scale(1.05); }
-
-/* KOLORY */
-.owner{ background:linear-gradient(135deg,#312e81,#1e1b4b); }
-.admin{ background:linear-gradient(135deg,#065f46,#064e3b); }
-.helper{ background:linear-gradient(135deg,#374151,#1f2937); }
-
-/* POPUP */
-.notify{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(8px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:99999;
-}
-
-.notify.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.notify-box{
-  width:420px;
-  max-width:90%;
-  background:#0f172a;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:28px;
-  padding:40px;
-  text-align:center;
-  animation:popup .3s ease;
-}
-
-@keyframes popup{
-  from{ transform:scale(.8); opacity:0; }
-  to{ transform:scale(1); opacity:1; }
-}
-
-.notify-icon{ font-size:4rem; margin-bottom:20px; }
-.notify-title{ font-size:2rem; font-weight:900; margin-bottom:15px; }
-.notify-text{ color:#cbd5e1; margin-bottom:30px; }
-
-.popup-buttons{
-  display:flex;
-  gap:15px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.apply-btn{
-  padding:14px 28px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#34d399,#10b981);
-  color:#022c22;
-  font-weight:900;
-  text-decoration:none;
-  border:none;
-  cursor:pointer;
-}
-</style>
-</head>
-
-<body>
-
-<nav>
-<ul>
-  <li><a href="index.html">Strona główna</a></li>
-  <li><a href="regulamin.html">Regulamin</a></li>
-  <li><a href="javascript:void(0)" onclick="openAdmin()">Admin Panel</a></li>
-</ul>
-</nav>
-
-<header>
-
-<div class="notify" id="rankInfo">
-  <div class="notify-box">
-    <div class="notify-icon" id="infoIcon">🛠️</div>
-    <div class="notify-title" id="infoTitle">Info</div>
-    <div class="notify-text" id="infoText">Opis</div>
-
-    <div class="popup-buttons">
-      <a class="apply-btn" id="applyBtn" href="#">Złóż podanie</a>
-      <button class="apply-btn" onclick="zamknijInfo()">Zamknij</button>
-    </div>
-  </div>
-</div>
-
-<!-- LOCK -->
-<div class="notify" id="notify">
-  <div class="notify-box">
-    <div class="notify-icon">🔒</div>
-    <div class="notify-title">Zamknięte</div>
-    <div class="notify-text">Rekrutacja nieaktywna</div>
-    <button class="apply-btn" onclick="zamknijPowiadomienie()">OK</button>
-  </div>
-</div>
-
-<!-- ADMIN PANEL -->
-<div class="notify" id="adminPanel">
-  <div class="notify-box">
-    <div class="notify-icon">⚙️</div>
-    <div class="notify-title">Panel Admina</div>
-
-    <div class="popup-buttons">
-      <button class="apply-btn" onclick="toggle('admin')">Admin ON/OFF</button>
-      <button class="apply-btn" onclick="toggle('helper')">Helper ON/OFF</button>
-    </div>
-
-    <br>
-    <button class="apply-btn" onclick="zamknijAdmin()">Zamknij</button>
-  </div>
-</div>
-
-<script>
-// ===== INIT =====
-if(localStorage.getItem("admin")===null)localStorage.setItem("admin","true");
-if(localStorage.getItem("helper")===null)localStorage.setItem("helper","true");
-
-// ===== POPUPS =====
-function openAdmin(){
-  let pass = prompt("Hasło:");
-  if(pass==="1234") document.getElementById("adminPanel").classList.add("show");
-  else alert("Błędne hasło");
-}
-
-function zamknijAdmin(){
-  document.getElementById("adminPanel").classList.remove("show");
-}
-
-function zamknietaRekrutacja(){
-  document.getElementById("notify").classList.add("show");
-}
-
-function zamknijPowiadomienie(){
-  document.getElementById("notify").classList.remove("show");
-}
-
-function pokazInfo(type){
-  let icon="🛠️", title="", text="";
-
-  if(type==="admin"){
-    title="Admin";
-    text="Zarządza serwerem.";
-  }
-
-  if(type==="helper"){
-    icon="✨";
-    title="Helper";
-    text="Pomaga graczom.";
-  }
-
-  document.getElementById("infoIcon").innerHTML=icon;
-  document.getElementById("infoTitle").innerHTML=title;
-  document.getElementById("infoText").innerHTML=text;
-
-  document.getElementById("rankInfo").classList.add("show");
-}
-
-function zamknijInfo(){
-  document.getElementById("rankInfo").classList.remove("show");
-}
-
-
-</script>
-
-<!-- // ===== TOGGLE SYSTEM =====
-function toggle(role){
-  let val = localStorage.getItem(role)==="true";
-  localStorage.setItem(role,!val);
-  update();
-}
-
-function update(){
-  let admin = localStorage.getItem("admin")==="true";
-  let helper = localStorage.getItem("helper")==="true";
-
-  document.getElementById("adminStatus").innerHTML =
-    admin ? "🟢 Rekrutacja aktywna" : "🔴 Zamknięta";
-
-  document.getElementById("helperStatus").innerHTML =
-    helper ? "🟢 Rekrutacja aktywna" : "🔴 Zamknięta";
-}
-
-update(); -->
-</script>
-
-</body>
-</html><!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
@@ -470,6 +158,7 @@ header p{
   background:white;
   color:#111827;
   transition:.25s;
+  cursor:pointer;
 }
 
 .rank-btn:hover{
@@ -503,7 +192,8 @@ footer{
   color:var(--text);
   border-top:1px solid rgba(255,255,255,.08);
 }
-/* ===== POWIADOMIENIE ===== */
+
+/* ===== POPUP ===== */
 
 .notify{
   position:fixed;
@@ -541,7 +231,7 @@ footer{
 
   box-shadow:
   0 0 40px rgba(52,211,153,.15);
-  
+
   animation:popup .3s ease;
 }
 
@@ -562,21 +252,30 @@ footer{
   margin-bottom:30px;
 }
 
-.notify button{
-  padding:14px 32px;
-  border:none;
+.popup-buttons{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.apply-btn{
+  padding:14px 28px;
   border-radius:14px;
 
   background:linear-gradient(135deg,#34d399,#10b981);
 
   color:#022c22;
-  font-weight:800;
+  font-weight:900;
+  text-decoration:none;
+
+  border:none;
   cursor:pointer;
 
   transition:.25s;
 }
 
-.notify button:hover{
+.apply-btn:hover{
   transform:scale(1.05);
 }
 
@@ -594,157 +293,8 @@ footer{
 
 }
 
-  /* ===== BUTTONY W POPUPIE ===== */
-
-.popup-buttons{
-  display:flex;
-  gap:15px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.apply-btn{
-
-  padding:14px 28px;
-
-  border-radius:14px;
-
-  text-decoration:none;
-
-  background:
-  linear-gradient(135deg,#34d399,#10b981);
-
-  color:#022c22;
-
-  font-weight:900;
-
-  transition:.25s;
-}
-
-.apply-btn:hover{
-  transform:scale(1.05);
-}
 </style>
 </head>
-  <script>
-
-function zamknietaRekrutacja(){
-  document
-    .getElementById("notify")
-    .classList.add("show");
-}
-
-function zamknijPowiadomienie(){
-  document
-    .getElementById("notify")
-    .classList.remove("show");
-}
-
-</script>
-<script>
-
-/* ===== POPUP REKRUTACJI ===== */
-
-function zamknietaRekrutacja(){
-
-  document
-    .getElementById("notify")
-    .classList.add("show");
-}
-
-function zamknijPowiadomienie(){
-
-  document
-    .getElementById("notify")
-    .classList.remove("show");
-}
-
-/* ===== POPUP INFORMACJI ===== */
-
-<script>
-
-function pokazInfo(ranga){
-
-  const title=document.getElementById("infoTitle");
-  const text=document.getElementById("infoText");
-  const icon=document.getElementById("infoIcon");
-  const apply=document.getElementById("applyBtn");
-
-  /* ===== ADMIN ===== */
-
-  if(ranga==="admin"){
-
-    icon.innerHTML="🛠️";
-
-    title.innerHTML="Admin";
-
-    text.innerHTML=
-    "Admin pilnuje porządku na serwerze, zarządza eventami oraz pomaga graczom.";
-
-    apply.style.display="inline-block";
-
-    apply.href="https://twoj-link-do-podania.pl";
-  }
-
-  /* ===== MOD ===== */
-
-  if(ranga==="mod"){
-
-    icon.innerHTML="🧑‍💼";
-
-    title.innerHTML="Moderator";
-
-    text.innerHTML=
-    "Moderator odpowiada za chat, zgłoszenia i pomoc społeczności.";
-
-    apply.style.display="inline-block";
-
-    apply.href="https://twoj-link-do-podania.pl";
-  }
-
-  /* ===== HELPER ===== */
-
-  if(ranga==="helper"){
-
-    icon.innerHTML="✨";
-
-    title.innerHTML="Helper";
-
-    text.innerHTML=
-    "Helper pomaga nowym graczom oraz wspiera administrację.";
-
-    apply.style.display="none";
-  }
-
-  /* ===== OWNER ===== */
-
-  if(ranga==="owner"){
-
-    icon.innerHTML="👑";
-
-    title.innerHTML="Właściciel";
-
-    text.innerHTML=
-    "Najwyższa ranga serwera. Rekrutacja jest niedostępna.";
-
-    apply.style.display="none";
-  }
-
-  document
-    .getElementById("rankInfo")
-    .classList.add("show");
-}
-
-function zamknijInfo(){
-
-  document
-    .getElementById("rankInfo")
-    .classList.remove("show");
-}
-
-
-
-</script>
 
 <body>
 
@@ -757,15 +307,21 @@ function zamknijInfo(){
 </ul>
 </nav>
 
+
 <!-- HEADER -->
 
 <header>
-  <h1>Panel <span>Rekrutacyjny</span></h1>
+
+  <h1>
+    Panel <span>Rekrutacyjny</span>
+  </h1>
 
   <p>
     Rekrutacje • Rangi • Formularze • Zarządzanie
   </p>
+
 </header>
+
 
 <!-- RANGI -->
 
@@ -784,25 +340,27 @@ function zamknijInfo(){
     </div>
 
     <div class="rank-desc">
-      Zarządza całym serwerem oraz podejmuje wszystkie najważniejsze decyzje.
+      Zarządza całym serwerem, podejmuje najważniejsze decyzje,
+      rozwija projekt oraz odpowiada za jego działanie i przyszłość.
     </div>
 
-    <div class="status off">
+    <div class="status" id="ownerStatus">
       🔴 Rekrutacja zamknięta
     </div>
 
     <br>
 
     <a href="javascript:void(0)"
-    class="rank-btn"
-    onclick="zamknietaRekrutacja()">
+       class="rank-btn"
+       id="ownerButton"
+       onclick="klikRekrutacja('owner')">
 
-    Niedostępne
+      Niedostępne
 
     </a>
 
-
   </div>
+
 
   <!-- ADMIN -->
 
@@ -817,26 +375,29 @@ function zamknijInfo(){
     </div>
 
     <div class="rank-desc">
-      Pilnuje porządku, pomaga graczom i zarządza eventami.
+      Pilnuje porządku, pomaga graczom, zarządza eventami
+      oraz wspiera właściciela w prowadzeniu serwera.
     </div>
 
-    <div class="status on">
+    <div class="status" id="adminStatus">
       🟢 Rekrutacja aktywna
     </div>
 
     <br>
 
-<a href="javascript:void(0)"
-   class="rank-btn"
-   onclick="pokazInfo('admin')">
+    <a href="javascript:void(0)"
+       class="rank-btn"
+       id="adminButton"
+       onclick="klikRekrutacja('admin')">
 
-  Informacje
+      Informacje
 
-</a>
+    </a>
 
   </div>
 
-  <!-- MOD -->
+
+  <!-- MOD / HELPER -->
 
   <div class="rank-card mod">
 
@@ -845,28 +406,31 @@ function zamknijInfo(){
     </div>
 
     <div class="rank-title">
-      🧑‍💼 HELPER
+      🧑‍💼 Helper
     </div>
 
     <div class="rank-desc">
-      Pomaga adminom, graczom. Pierwszy krok w stronę admina
+      Pomaga adminom i graczom, pilnuje porządku oraz zdobywa
+      doświadczenie potrzebne do dalszego rozwoju w administracji.
     </div>
 
-    <div class="status on">
+    <div class="status" id="modStatus">
       🟢 Rekrutacja aktywna
     </div>
 
     <br>
 
-<a href="javascript:void(0)"
-   class="rank-btn"
-   onclick="pokazInfo('helper')">
+    <a href="javascript:void(0)"
+       class="rank-btn"
+       id="modButton"
+       onclick="klikRekrutacja('mod')">
 
-  Informacje
+      Informacje
 
-</a>
+    </a>
 
   </div>
+
 
   <!-- HELPER -->
 
@@ -881,26 +445,31 @@ function zamknijInfo(){
     </div>
 
     <div class="rank-desc">
-      Pomaga nowym graczom oraz wspiera administrację serwera.
+      Pomaga nowym graczom, odpowiada na ich pytania,
+      pomaga w rozwiązywaniu problemów i wspiera społeczność serwera.
+      Jest jednym z pierwszych kroków do administracji.
     </div>
 
-    <div class="status off">
+    <div class="status" id="helperStatus">
       🔴 Rekrutacja zamknięta
     </div>
 
     <br>
 
     <a href="javascript:void(0)"
-    class="rank-btn"
-    onclick="zamknietaRekrutacja()">
+       class="rank-btn"
+       id="helperButton"
+       onclick="klikRekrutacja('helper')">
 
-    Niedostępne
+      Niedostępne
 
     </a>
 
   </div>
 
 </div>
+
+
 <!-- ===== POPUP INFORMACJI ===== -->
 
 <div class="notify" id="rankInfo">
@@ -929,8 +498,11 @@ function zamknijInfo(){
 
       </a>
 
-      <button onclick="zamknijInfo()">
+      <button class="apply-btn"
+              onclick="zamknijInfo()">
+
         Zamknij
+
       </button>
 
     </div>
@@ -938,47 +510,12 @@ function zamknijInfo(){
   </div>
 
 </div>
-<footer>
-© 2026 Ekipa Mapy • Panel Administracji
-</footer>
-  <!-- ===== INFO POPUP ===== -->
 
-<div class="notify" id="rankInfo">
 
-  <div class="notify-box">
+<!-- ===== POPUP ZAMKNIĘTEJ REKRUTACJI ===== -->
 
-    <div class="notify-icon" id="infoIcon">
-      🛠️
-    </div>
-
-    <div class="notify-title" id="infoTitle">
-      Admin
-    </div>
-
-    <div class="notify-text" id="infoText">
-      Informacje o randze.
-    </div>
-
-<div class="popup-buttons">
-
-  <a href="#"
-     class="apply-btn"
-     id="applyBtn">
-
-    Złóż podanie
-
-  </a>
-
-  <button onclick="zamknijInfo()">
-    Zamknij
-  </button>
-
-</div>
-
-  </div>
-
-</div>
 <div class="notify" id="notify">
+
   <div class="notify-box">
 
     <div class="notify-icon">
@@ -993,16 +530,252 @@ function zamknijInfo(){
       Ta ranga nie przyjmuje obecnie podań.
     </div>
 
-    <button onclick="zamknijPowiadomienie()">
+    <button class="apply-btn"
+            onclick="zamknijPowiadomienie()">
+
       Rozumiem
+
     </button>
 
   </div>
+
 </div>
+
+
+<!-- FOOTER -->
+
+<footer>
+  © 2026 Ekipa Mapy • Panel Administracji
+</footer>
+
+
+<script>
+
+/* =====================================================
+   USTAWIENIA REKRUTACJI
+
+   true  = rekrutacja aktywna
+   false = rekrutacja zamknięta
+
+   WYSTARCZY ZMIENIAĆ TUTAJ!
+===================================================== */
+
+const rekrutacja = {
+
+  owner: false,
+
+  admin: true,
+
+  mod: true,
+
+  helper: false
+
+};
+
+
+/* =====================================================
+   LINKI DO PODAŃ
+===================================================== */
+
+const linkiDoPodan = {
+
+  admin: "https://twoj-link-do-podania.pl",
+
+  mod: "https://twoj-link-do-podania.pl",
+
+  helper: "https://twoj-link-do-podania.pl"
+
+};
+
+
+/* =====================================================
+   INFORMACJE O RANGACH
+===================================================== */
+
+const informacje = {
+
+  owner: {
+    icon: "👑",
+    title: "Właściciel",
+    text: "Najwyższa ranga serwera. Właściciel zarządza całym projektem, podejmuje najważniejsze decyzje oraz odpowiada za rozwój i działanie serwera."
+  },
+
+  admin: {
+    icon: "🛠️",
+    title: "Admin",
+    text: "Admin pilnuje porządku na serwerze, pomaga graczom, zarządza eventami oraz wspiera właściciela w prowadzeniu serwera."
+  },
+
+  mod: {
+    icon: "🧑‍💼",
+    title: "Helper",
+    text: "Helper pomaga graczom i administracji, pilnuje porządku oraz zdobywa doświadczenie potrzebne do dalszego rozwoju w administracji."
+  },
+
+  helper: {
+    icon: "✨",
+    title: "Helper",
+    text: "Helper pomaga nowym graczom, odpowiada na pytania, rozwiązuje problemy i wspiera społeczność serwera. Jest jednym z pierwszych kroków do administracji."
+  }
+
+};
+
+
+/* =====================================================
+   AKTUALIZACJA STATUSÓW
+===================================================== */
+
+function updateRekrutacja(){
+
+  const rangi = ["owner", "admin", "mod", "helper"];
+
+  rangi.forEach(function(ranga){
+
+    const status = document.getElementById(ranga + "Status");
+    const button = document.getElementById(ranga + "Button");
+
+    if(rekrutacja[ranga] === true){
+
+      status.className = "status on";
+      status.innerHTML = "🟢 Rekrutacja aktywna";
+
+      if(ranga === "owner"){
+
+        button.innerHTML = "Informacje";
+
+      }else{
+
+        button.innerHTML = "Informacje";
+
+      }
+
+    }else{
+
+      status.className = "status off";
+      status.innerHTML = "🔴 Rekrutacja zamknięta";
+
+      button.innerHTML = "Niedostępne";
+
+    }
+
+  });
+
+}
+
+
+/* =====================================================
+   KLIKNIĘCIE W RANGĘ
+===================================================== */
+
+function klikRekrutacja(ranga){
+
+  /* Jeżeli rekrutacja jest zamknięta */
+
+  if(rekrutacja[ranga] === false){
+
+    document
+      .getElementById("notify")
+      .classList.add("show");
+
+    return;
+  }
+
+
+  /* Właściciel nie posiada normalnego formularza */
+
+  if(ranga === "owner"){
+
+    pokazInfo("owner");
+
+    return;
+  }
+
+
+  /* Pozostałe rangi */
+
+  pokazInfo(ranga);
+
+}
+
+
+/* =====================================================
+   POKAZYWANIE INFORMACJI
+===================================================== */
+
+function pokazInfo(ranga){
+
+  const info = informacje[ranga];
+
+  document.getElementById("infoIcon").innerHTML =
+    info.icon;
+
+  document.getElementById("infoTitle").innerHTML =
+    info.title;
+
+  document.getElementById("infoText").innerHTML =
+    info.text;
+
+
+  const applyBtn =
+    document.getElementById("applyBtn");
+
+
+  /* Właściciel nie ma formularza */
+
+  if(ranga === "owner"){
+
+    applyBtn.style.display = "none";
+
+  }else{
+
+    applyBtn.style.display = "inline-block";
+
+    applyBtn.href = linkiDoPodan[ranga];
+
+  }
+
+
+  document
+    .getElementById("rankInfo")
+    .classList.add("show");
+
+}
+
+
+/* =====================================================
+   ZAMYKANIE POPUPU INFORMACJI
+===================================================== */
+
+function zamknijInfo(){
+
+  document
+    .getElementById("rankInfo")
+    .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   ZAMYKANIE POPUPU REKRUTACJI
+===================================================== */
+
+function zamknijPowiadomienie(){
+
+  document
+    .getElementById("notify")
+    .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+updateRekrutacja();
+
+</script>
+
 </body>
 </html>
-
-
-
-
 
